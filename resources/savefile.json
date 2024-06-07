@@ -1,0 +1,37 @@
+{
+ "permissionRequest": true,
+ "initialState": "PoweredOff",
+ "endState": "PoweredOn",
+ "devices": [
+  {
+   "device": {
+    "name": "My Dongle",
+    "id": "ecb8c63d-20ff-4d04-a097-791d49d053d5",
+    "localName": "",
+    "isConnectable": true,
+    "isConnected": true,
+    "_haveDeviceFail": false
+   },
+   "service": [
+    {
+     "id": "2eb455c4-07ee-4fa7-83e8-73770b677d7d",
+     "uuid": "206a42e1-454e-43cd-8aa7-47eadfa17a5d",
+     "deviceID": "ecb8c63d-20ff-4d04-a097-791d49d053d5"
+    }
+   ],
+   "characteristics": [
+    {
+     "id": "4acd772d-ddf6-4003-871e-517619488caa",
+     "uuid": "a4596057-ac90-4d72-ba26-d5cec47a7188",
+     "serviceID": "2eb455c4-07ee-4fa7-83e8-73770b677d7d",
+     "serviceUUID": "206a42e1-454e-43cd-8aa7-47eadfa17a5d",
+     "deviceID": "ecb8c63d-20ff-4d04-a097-791d49d053d5",
+     "isReadable": true,
+     "isWritableWithResponse": false,
+     "isWritableWithoutResponse": true,
+     "value": "Hello"
+    }
+   ]
+  }
+ ]
+}
