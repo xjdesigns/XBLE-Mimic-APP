@@ -1,4 +1,4 @@
-# expoblemock
+# Expo Mimic APP
 
 An Electron application with React
 
