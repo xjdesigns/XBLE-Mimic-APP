@@ -6,10 +6,11 @@ import {
   SlButton,
   SlButtonGroup,
   SlSelect,
-  SlOption
+  SlOption,
+  SlBadge
 } from './shoelace'
 import { v4 as uuidv4 } from 'uuid'
-import { NEW_DEVICE } from '../constants/device'
+import { NEW_DEVICE, SERVICE, CHARACTERISTIC } from '../constants/device'
 
 // TODO: add/remove service and characteristic
 // Removing can be simple for the first pass, the issue will be searching all data to reset it to blank or another
@@ -149,6 +150,7 @@ const Device = ({
 
   const handleDescriptorUpdate = (key, cidx, didx) => (ev) => {
     const val = ev.target.value
+    console.warn('didx', didx)
 
     onChange((prevState) => {
       const devices = [...prevState.devices]
@@ -202,6 +204,72 @@ const Device = ({
       }
     })
   }
+
+  const handleAddService = () => {
+    onChange((prevState) => {
+      const devices = JSON.parse(JSON.stringify(prevState.devices))
+      const services = [...devices[idx].service]
+      const newService = {
+        ...SERVICE,
+        deviceID: devices[idx].device.id
+      }
+      services.push(newService)
+      devices[idx].service = services
+
+      return {
+        ...prevState,
+        devices: devices
+      }
+    })
+  }
+
+  const handleRemoveService = (sidx) => () => {
+    onChange((prevState) => {
+      const devices = [...prevState.devices]
+      devices[idx].service = devices[idx].service.filter((s, iidx) => {
+        return sidx !== iidx
+      })
+
+      return {
+        ...prevState,
+        devices: devices
+      }
+    })
+  }
+
+  const handleAddCharacter = () => {
+    onChange((prevState) => {
+      const devices = JSON.parse(JSON.stringify(prevState.devices))
+      const characteristics = [...devices[idx].characteristics]
+      const newCharacter = {
+        ...CHARACTERISTIC,
+        deviceID: devices[idx].device.id
+      }
+      characteristics.push(newCharacter)
+      devices[idx].characteristics = characteristics
+
+      return {
+        ...prevState,
+        devices: devices
+      }
+    })
+  }
+
+  // const handleRemoveCharacter = (sidx) => () => {
+  //   onChange((prevState) => {
+  //     const devices = [...prevState.devices]
+  //     devices[idx].service = devices[idx].service.filter((s, iidx) => {
+  //       return sidx !== iidx
+  //     })
+
+  //     return {
+  //       ...prevState,
+  //       devices: devices
+  //     }
+  //   })
+  // }
+
+  // console.warn('service', service)
 
   return (
     <div className="xble-cinner">
@@ -272,17 +340,20 @@ const Device = ({
 
       <div className="xble-divider" />
 
+      <div className="xble-cinner-sm">
+        <div className="xble-flex">
+          <div className="xble-flex-fill">
+            <SlBadge pill>Service</SlBadge>
+          </div>
+          <div>
+            <SlIconButton name="node-plus-fill" label="Add More" onClick={handleAddService} />
+          </div>
+        </div>
+      </div>
+
       {service.map((s, idx) => {
         return (
           <div key={idx} className="xble-cinner">
-            <div className="xble-cinner-sm">
-              <div className="xble-flex">
-                <div className="xble-flex-fill">Service</div>
-                <div>
-                  <SlIconButton name="node-plus-fill" label="Add More" disabled />
-                </div>
-              </div>
-            </div>
             <div className="xble-cinner-sm">
               <div className="xble-flex">
                 <div className="xble-flex-fill">
@@ -326,29 +397,41 @@ const Device = ({
                 </SlSwitch>
               </div>
             </div>
+            <div className="xble-cinner-sm">
+              <SlButton
+                size="small"
+                onClick={handleRemoveService(idx)}
+                disabled={service.length < 2}
+              >
+                Remove
+              </SlButton>
+            </div>
           </div>
         )
       })}
 
       <div className="xble-divider" />
 
+      <div className="xble-cinner-sm">
+        <div className="xble-flex">
+          <div className="xble-flex-fill">
+            <SlBadge pill>Characteristics</SlBadge>
+          </div>
+          <div>
+            <SlIconButton name="node-plus-fill" label="Add More" onClick={handleAddCharacter} />
+          </div>
+        </div>
+      </div>
+
       {characteristics.map((c, cidx) => {
         return (
           <div key={cidx} className="xble-cinner">
-            <div className="xble-cinner-sm">
-              <div className="xble-flex">
-                <div className="xble-flex-fill">Characteristics</div>
-                <div>
-                  <SlIconButton name="node-plus-fill" label="Add More" disabled />
-                </div>
-              </div>
-            </div>
             <div className="xble-cinner-sm">
               <SlSelect
                 label="Service"
                 value={c.serviceID}
                 size="small"
-                onSlChange={(ev) => handleCharServiceSelect(ev, idx)}
+                onSlChange={(ev) => handleCharServiceSelect(ev, cidx)}
               >
                 {service.map((s, sidx) => {
                   return (
@@ -367,19 +450,19 @@ const Device = ({
                       label="ID"
                       size="small"
                       value={c.id}
-                      onSlInput={handleCharacteristicUpdate('id', idx)}
+                      onSlInput={handleCharacteristicUpdate('id', cidx)}
                     />
                     <SlIconButton
                       name="plugin"
                       label="Add Characteristic ID"
-                      onClick={generateUUID('id', 'characteristic', idx)}
+                      onClick={generateUUID('id', 'characteristic', cidx)}
                     />
                   </div>
                   <div>
                     <SlSwitch
                       size="small"
                       checked={c.isReadable}
-                      onSlChange={handleCharacteristicUpdate('isReadable', idx)}
+                      onSlChange={handleCharacteristicUpdate('isReadable', cidx)}
                     >
                       Is Readable
                     </SlSwitch>
@@ -388,7 +471,7 @@ const Device = ({
                     <SlSwitch
                       size="small"
                       checked={c.isWritableWithResponse}
-                      onSlChange={handleCharacteristicUpdate('isWritableWithResponse', idx)}
+                      onSlChange={handleCharacteristicUpdate('isWritableWithResponse', cidx)}
                     >
                       Is Writable w/ Response
                     </SlSwitch>
@@ -397,7 +480,7 @@ const Device = ({
                     <SlSwitch
                       size="small"
                       checked={c.isWritableWithoutResponse}
-                      onSlChange={handleCharacteristicUpdate('isWritableWithoutResponse', idx)}
+                      onSlChange={handleCharacteristicUpdate('isWritableWithoutResponse', cidx)}
                     >
                       Is Writable w/o Response
                     </SlSwitch>
@@ -409,12 +492,12 @@ const Device = ({
                       label="UUID"
                       size="small"
                       value={c.uuid}
-                      onSlInput={handleCharacteristicUpdate('uuid', idx)}
+                      onSlInput={handleCharacteristicUpdate('uuid', cidx)}
                     />
                     <SlIconButton
                       name="plugin"
                       label="Add Characteristic ID"
-                      onClick={generateUUID('uuid', 'characteristic', idx)}
+                      onClick={generateUUID('uuid', 'characteristic', cidx)}
                     />
                   </div>
                   <div>
@@ -422,7 +505,7 @@ const Device = ({
                       label="Value"
                       size="small"
                       value={c.value}
-                      onSlInput={handleCharacteristicUpdate('value', idx)}
+                      onSlInput={handleCharacteristicUpdate('value', cidx)}
                     />
                   </div>
                 </div>
@@ -434,7 +517,9 @@ const Device = ({
             <div className="xble-cinner-sm">
               <div className="xble-cinner-sm">
                 <div className="xble-flex">
-                  <div className="xble-flex-fill">Descriptors</div>
+                  <div className="xble-flex-fill">
+                    <SlBadge pill>Descriptors</SlBadge>
+                  </div>
                   <div>
                     <SlIconButton name="node-plus-fill" label="Add More" disabled />
                   </div>
