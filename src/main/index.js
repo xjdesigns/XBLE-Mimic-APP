@@ -63,7 +63,7 @@ app.whenReady().then(() => {
 
   ipcMain.on('SAVE_FILE', (_, data) => {
     console.warn('SAVE FILE data', data)
-    const file = JSON.stringify(data, null, ' ')
+    const file = JSON.stringify(data, null, '  ')
     fs.writeFile(join(FILE_LOCATION), file, err => {
       if (err) {
         console.error(err)

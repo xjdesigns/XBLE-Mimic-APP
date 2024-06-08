@@ -20,8 +20,17 @@ import Core from './components/core'
 //         const { device, service, characteristics } = res
 //         const suuid = service[0].uuid
 //         const cuuid = characteristics[0].uuid
+
 //         manager.readCharacteristicForDevice(device.id, suuid, cuuid).then((c) => {
 //           console.warn('HELLO', c)
+//         })
+
+//         manager.servicesForDevice(device.id, suuid).then((services) => {
+//           console.warn('Services', services)
+//         })
+
+//         manager.descriptorsForDevice(device.id, suuid, cuuid).then((descriptors) => {
+//           console.warn('descriptors', descriptors)
 //         })
 //       })
 //   })

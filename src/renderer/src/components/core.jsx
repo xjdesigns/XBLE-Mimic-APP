@@ -58,7 +58,7 @@ const Core = () => {
 
   const handleDeleteDevice = (didx) => {
     let newData
-    const devices = [...data.devices].filter((_, idx) => didx === idx)
+    const devices = [...data.devices].filter((_, idx) => didx !== idx)
 
     setData((prevState) => {
       newData = {

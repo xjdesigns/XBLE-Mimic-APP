@@ -63,6 +63,10 @@ const Device = ({
   const handleServiceUpdate = (key, sidx) => (ev) => {
     let val = ev.target.value
 
+    if (key === 'isPrimary') {
+      val = ev.target.checked
+    }
+
     onChange((prevState) => {
       const devices = [...prevState.devices]
       devices[idx] = {
@@ -97,6 +101,23 @@ const Device = ({
         [key]: val
       }
 
+      const descriptorValues = {
+        characteristicID: devices[idx].characteristics[cidx].id,
+        characteristicUUID: devices[idx].characteristics[cidx].uuid,
+        serviceID: devices[idx].characteristics[cidx].serviceID,
+        serviceUUID: devices[idx].characteristics[cidx].serviceUUID,
+        deviceID: devices[idx].characteristics[cidx].deviceID
+      }
+
+      devices[idx].characteristics[cidx].descriptors = devices[idx].characteristics[
+        cidx
+      ].descriptors.map((d) => {
+        return {
+          ...d,
+          ...descriptorValues
+        }
+      })
+
       return {
         ...prevState,
         devices: devices
@@ -126,7 +147,24 @@ const Device = ({
     })
   }
 
-  const generateUUID = (key, type, idx) => () => {
+  const handleDescriptorUpdate = (key, cidx, didx) => (ev) => {
+    const val = ev.target.value
+
+    onChange((prevState) => {
+      const devices = [...prevState.devices]
+      devices[idx].characteristics[cidx].descriptors[didx] = {
+        ...devices[idx].characteristics[cidx].descriptors[didx],
+        [key]: val
+      }
+
+      return {
+        ...prevState,
+        devices: devices
+      }
+    })
+  }
+
+  const generateUUID = (key, type, idx, sidx) => () => {
     const ev = {
       target: {
         value: uuidv4()
@@ -145,6 +183,11 @@ const Device = ({
     if (type === 'characteristic') {
       const characteristicFn = handleCharacteristicUpdate(key, idx)
       characteristicFn(ev)
+    }
+
+    if (type === 'descriptor') {
+      const descriptorFn = handleDescriptorUpdate(key, idx, sidx)
+      descriptorFn(ev)
     }
   }
 
@@ -273,6 +316,15 @@ const Device = ({
                   </div>
                 </div>
               </div>
+              <div>
+                <SlSwitch
+                  size="small"
+                  checked={s.isPrimary}
+                  onSlInput={handleServiceUpdate('isPrimary', idx)}
+                >
+                  Is Primary
+                </SlSwitch>
+              </div>
             </div>
           </div>
         )
@@ -280,9 +332,9 @@ const Device = ({
 
       <div className="xble-divider" />
 
-      {characteristics.map((c, idx) => {
+      {characteristics.map((c, cidx) => {
         return (
-          <div key={idx} className="xble-cinner">
+          <div key={cidx} className="xble-cinner">
             <div className="xble-cinner-sm">
               <div className="xble-flex">
                 <div className="xble-flex-fill">Characteristics</div>
@@ -375,6 +427,65 @@ const Device = ({
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div className="xble-divider" />
+
+            <div className="xble-cinner-sm">
+              <div className="xble-cinner-sm">
+                <div className="xble-flex">
+                  <div className="xble-flex-fill">Descriptors</div>
+                  <div>
+                    <SlIconButton name="node-plus-fill" label="Add More" disabled />
+                  </div>
+                </div>
+              </div>
+              {c.descriptors.map((d, idx) => {
+                return (
+                  <div key={idx} className="xble-cinner-sm">
+                    <div className="xble-flex">
+                      <div className="xble-flex-fill">
+                        <div className="xble-igroup">
+                          <SlInput
+                            label="ID"
+                            size="small"
+                            value={d.id}
+                            onSlInput={handleDescriptorUpdate('id', cidx, idx)}
+                          />
+                          <SlIconButton
+                            name="plugin"
+                            label="Add Descriptor ID"
+                            onClick={generateUUID('id', 'descriptor', cidx, idx)}
+                          />
+                        </div>
+                      </div>
+                      <div className="xble-flex-fill">
+                        <div className="xble-igroup">
+                          <SlInput
+                            label="UUID"
+                            size="small"
+                            value={d.uuid}
+                            onSlInput={handleDescriptorUpdate('uuid', cidx, idx)}
+                          />
+                          <SlIconButton
+                            name="plugin"
+                            label="Add Descriptor UUID"
+                            onClick={generateUUID('uuid', 'descriptor', cidx, idx)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <SlInput
+                        label="Value"
+                        size="small"
+                        value={d.value}
+                        onSlInput={handleDescriptorUpdate('value', cidx, idx)}
+                      />
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         )

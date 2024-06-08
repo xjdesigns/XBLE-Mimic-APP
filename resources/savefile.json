@@ -1,37 +1,50 @@
 {
- "permissionRequest": true,
- "initialState": "PoweredOff",
- "endState": "PoweredOn",
- "devices": [
-  {
-   "device": {
-    "name": "My Dongle",
-    "id": "ecb8c63d-20ff-4d04-a097-791d49d053d5",
-    "localName": "",
-    "isConnectable": true,
-    "isConnected": true,
-    "_haveDeviceFail": false
-   },
-   "service": [
+  "permissionRequest": true,
+  "initialState": "PoweredOff",
+  "endState": "PoweredOn",
+  "devices": [
     {
-     "id": "2eb455c4-07ee-4fa7-83e8-73770b677d7d",
-     "uuid": "206a42e1-454e-43cd-8aa7-47eadfa17a5d",
-     "deviceID": "ecb8c63d-20ff-4d04-a097-791d49d053d5"
+      "device": {
+        "name": "Dongle",
+        "id": "98e75bd5-92b7-4f44-88b6-2b0c0cddf7c4",
+        "localName": "",
+        "isConnectable": true,
+        "isConnected": true,
+        "_haveDeviceFail": false
+      },
+      "service": [
+        {
+          "id": "985c04ed-399f-45e2-95c6-33ba338f993a",
+          "uuid": "f618f802-c928-4e7a-b37b-01826a893338",
+          "isPrimary": true,
+          "deviceID": "98e75bd5-92b7-4f44-88b6-2b0c0cddf7c4"
+        }
+      ],
+      "characteristics": [
+        {
+          "id": "5ebdccea-6412-4696-a5d6-d05cb42bc208",
+          "uuid": "a840597c-49f2-4214-831d-07d0f71a447e",
+          "serviceID": "985c04ed-399f-45e2-95c6-33ba338f993a",
+          "serviceUUID": "f618f802-c928-4e7a-b37b-01826a893338",
+          "isReadable": true,
+          "isWritableWithResponse": true,
+          "isWritableWithoutResponse": true,
+          "value": "",
+          "descriptors": [
+            {
+              "id": "af82274f-347c-49b2-9722-e9c909870c41",
+              "uuid": "7b47494f-aaea-431c-9b33-3d1f1b149531",
+              "characteristicID": "5ebdccea-6412-4696-a5d6-d05cb42bc208",
+              "characteristicUUID": "a840597c-49f2-4214-831d-07d0f71a447e",
+              "serviceID": "",
+              "serviceUUID": "",
+              "deviceID": "d349f9f9-a370-4868-8e55-dcb9dceeaba5",
+              "value": "Activate the dongle"
+            }
+          ],
+          "deviceID": "98e75bd5-92b7-4f44-88b6-2b0c0cddf7c4"
+        }
+      ]
     }
-   ],
-   "characteristics": [
-    {
-     "id": "4acd772d-ddf6-4003-871e-517619488caa",
-     "uuid": "a4596057-ac90-4d72-ba26-d5cec47a7188",
-     "serviceID": "2eb455c4-07ee-4fa7-83e8-73770b677d7d",
-     "serviceUUID": "206a42e1-454e-43cd-8aa7-47eadfa17a5d",
-     "deviceID": "ecb8c63d-20ff-4d04-a097-791d49d053d5",
-     "isReadable": true,
-     "isWritableWithResponse": false,
-     "isWritableWithoutResponse": true,
-     "value": "Hello"
-    }
-   ]
-  }
- ]
+  ]
 }

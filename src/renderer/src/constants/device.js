@@ -1,7 +1,19 @@
 export const SERVICE = {
   id: '',
   uuid: '',
-  deviceID: ''
+  deviceID: '',
+  isPrimary: false
+}
+
+export const DESCRIPTOR = {
+  id: '',
+  uuid: '',
+  characteristicID: '',
+  characteristicUUID: '',
+  serviceID: '',
+  serviceUUID: '',
+  deviceID: '',
+  value: ''
 }
 
 export const CHARACTERISTIC = {
@@ -13,7 +25,8 @@ export const CHARACTERISTIC = {
   isReadable: true,
   isWritableWithResponse: true,
   isWritableWithoutResponse: true,
-  value: ''
+  value: '',
+  descriptors: [{ ...DESCRIPTOR }]
 }
 
 export const NEW_DEVICE = {
