@@ -150,7 +150,6 @@ const Device = ({
 
   const handleDescriptorUpdate = (key, cidx, didx) => (ev) => {
     const val = ev.target.value
-    console.warn('didx', didx)
 
     onChange((prevState) => {
       const devices = [...prevState.devices]
@@ -255,21 +254,19 @@ const Device = ({
     })
   }
 
-  // const handleRemoveCharacter = (sidx) => () => {
-  //   onChange((prevState) => {
-  //     const devices = [...prevState.devices]
-  //     devices[idx].service = devices[idx].service.filter((s, iidx) => {
-  //       return sidx !== iidx
-  //     })
+  const handleRemoveCharacter = (cidx) => () => {
+    onChange((prevState) => {
+      const devices = [...prevState.devices]
+      devices[idx].characteristics = devices[idx].characteristics.filter((c, iidx) => {
+        return cidx !== iidx
+      })
 
-  //     return {
-  //       ...prevState,
-  //       devices: devices
-  //     }
-  //   })
-  // }
-
-  // console.warn('service', service)
+      return {
+        ...prevState,
+        devices: devices
+      }
+    })
+  }
 
   return (
     <div className="xble-cinner">
@@ -442,7 +439,7 @@ const Device = ({
                 })}
               </SlSelect>
             </div>
-            <div className="xble-cinner-sm">
+            <div className="xble-cinner">
               <div className="xble-flex">
                 <div className="xble-flex-fill">
                   <div className="xble-igroup">
@@ -511,6 +508,15 @@ const Device = ({
                 </div>
               </div>
             </div>
+            <div className="xble-cinner-sm">
+              <SlButton
+                size="small"
+                onClick={handleRemoveCharacter(cidx)}
+                disabled={characteristics.length < 2}
+              >
+                Remove
+              </SlButton>
+            </div>
 
             <div className="xble-divider" />
 
@@ -527,7 +533,7 @@ const Device = ({
               </div>
               {c.descriptors.map((d, idx) => {
                 return (
-                  <div key={idx} className="xble-cinner-sm">
+                  <div key={idx}>
                     <div className="xble-flex">
                       <div className="xble-flex-fill">
                         <div className="xble-igroup">
@@ -560,7 +566,7 @@ const Device = ({
                         </div>
                       </div>
                     </div>
-                    <div>
+                    <div className="xble-cinner">
                       <SlInput
                         label="Value"
                         size="small"
@@ -568,6 +574,7 @@ const Device = ({
                         onSlInput={handleDescriptorUpdate('value', cidx, idx)}
                       />
                     </div>
+                    <div className="xble-divider" />
                   </div>
                 )
               })}

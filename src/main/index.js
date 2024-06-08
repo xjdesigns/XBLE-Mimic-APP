@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { API } from './api'
-
+let isInitialized = false
 const FILE_LOCATION = join(__dirname, '../../resources/savefile.json')
 
 function createWindow() {
@@ -22,8 +22,9 @@ function createWindow() {
   })
 
   mainWindow.on('ready-to-show', () => {
-    API.startApi()
+    if (!isInitialized) API.startApi()
     mainWindow.show()
+    isInitialized = true
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {

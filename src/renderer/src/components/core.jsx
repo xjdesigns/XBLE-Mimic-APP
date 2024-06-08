@@ -164,7 +164,11 @@ const Core = () => {
 
           {data?.devices.map((d, idx) => {
             return (
-              <Panel key={idx} title={`Device (${d?.device?.name || 'n/a'})`} open={idx === 0}>
+              <Panel
+                key={`${d.device.id}-${idx}`}
+                title={`Device (${d?.device?.name || 'n/a'})`}
+                open={idx === 0}
+              >
                 <Device
                   data={d}
                   idx={idx}
