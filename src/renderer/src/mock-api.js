@@ -74,6 +74,12 @@ export function XBLEManager({ stateTimer = 5000 } = {}) {
       this.deviceWS.send('ws:close')
     },
 
+    async isDeviceConnected (deviceId) {
+      const device = await getAPI(`${BASE_URL}/device?deviceId=${deviceId}`)
+      console.warn('deivce connected', device)
+      return device?.data?.device?.isConnected ?? false
+    },
+
     async servicesForDevice (deviceId, serviceUUID) {
       const device = await getAPI(`${BASE_URL}/device?deviceId=${deviceId}`)
       return getDeviceServices(device?.data, deviceId, serviceUUID)

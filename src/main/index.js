@@ -59,7 +59,7 @@ app.whenReady().then(() => {
     setTimeout(() => {
       console.warn('APP_IS_READY event')
       getFileData(event, 'APP_LOADED')
-    }, 3000)
+    }, 2000)
   })
 
   ipcMain.on('SAVE_FILE', (_, data) => {

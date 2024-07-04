@@ -43,31 +43,9 @@
             }
           ],
           "deviceID": "98e75bd5-92b7-4f44-88b6-2b0c0cddf7c4"
-        },
-        {
-          "id": "e00a86ae-ec76-4654-a830-25ee1b282bbf",
-          "uuid": "9776452c-842a-4fa5-89ee-fd4d838fdd88",
-          "serviceID": "985c04ed-399f-45e2-95c6-33ba338f993a",
-          "serviceUUID": "f618f802-c928-4e7a-b37b-01826a893338",
-          "deviceID": "98e75bd5-92b7-4f44-88b6-2b0c0cddf7c4",
-          "isReadable": true,
-          "isWritableWithResponse": true,
-          "isWritableWithoutResponse": true,
-          "value": "",
-          "descriptors": [
-            {
-              "id": "5787af3d-19c6-4b92-ad90-003757e76200",
-              "uuid": "92939a1b-df72-4465-be0d-0d4aac7e8ba6",
-              "characteristicID": "e00a86ae-ec76-4654-a830-25ee1b282bbf",
-              "characteristicUUID": "9776452c-842a-4fa5-89ee-fd4d838fdd88",
-              "serviceID": "985c04ed-399f-45e2-95c6-33ba338f993a",
-              "serviceUUID": "f618f802-c928-4e7a-b37b-01826a893338",
-              "deviceID": "98e75bd5-92b7-4f44-88b6-2b0c0cddf7c4",
-              "value": ""
-            }
-          ]
         }
       ]
     }
-  ]
+  ],
+  "throwError": false
 }

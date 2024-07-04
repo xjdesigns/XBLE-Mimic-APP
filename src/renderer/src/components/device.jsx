@@ -340,7 +340,7 @@ const Device = ({
       <div className="xble-cinner-sm">
         <div className="xble-flex">
           <div className="xble-flex-fill">
-            <SlBadge pill>Service</SlBadge>
+            <SlBadge pill>Services</SlBadge>
           </div>
           <div>
             <SlIconButton name="node-plus-fill" label="Add More" onClick={handleAddService} />
@@ -351,6 +351,11 @@ const Device = ({
       {service.map((s, idx) => {
         return (
           <div key={idx} className="xble-cinner">
+            <div className="xble-cinner-sm">
+              <SlBadge pill variant="neutral">
+                Service ({idx})
+              </SlBadge>
+            </div>
             <div className="xble-cinner-sm">
               <div className="xble-flex">
                 <div className="xble-flex-fill">
@@ -423,6 +428,11 @@ const Device = ({
       {characteristics.map((c, cidx) => {
         return (
           <div key={cidx} className="xble-cinner">
+            <div className="xble-cinner-sm">
+              <SlBadge pill variant="neutral">
+                Characteristic ({cidx})
+              </SlBadge>
+            </div>
             <div className="xble-cinner-sm">
               <SlSelect
                 label="Service"

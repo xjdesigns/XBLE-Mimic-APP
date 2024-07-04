@@ -14,6 +14,10 @@ export const API = {
     this.app.options('*', cors())
     expressWs(this.app)
 
+    this.app.get('/status', (req, res) => {
+      res.send('Ok')
+    })
+
     // Routes
     this.app.get('/permissionRequest', (req, res) => {
       getFile('savefile.json', (data) => {

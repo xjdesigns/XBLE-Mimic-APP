@@ -1,8 +1,22 @@
-import { useState } from 'react'
-import { SlButton, SlIcon, SlDialog } from './shoelace'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { SlButton, SlIcon, SlDialog, SlBadge } from './shoelace'
 
 const Header = () => {
   const [open, setOpen] = useState(false)
+  const [serverOpen, setServerOpen] = useState(false)
+  const [serverRunning, setServerRunning] = useState(false)
+
+  useEffect(() => {
+    if (serverOpen) {
+      axios
+        .get('http://localhost:3000/status')
+        .then(() => {
+          setServerRunning(true)
+        })
+        .catch(() => setServerRunning(false))
+    }
+  }, [serverOpen])
 
   return (
     <>
@@ -10,6 +24,9 @@ const Header = () => {
         <div className="xble-h-title">XBLE MIMIC</div>
 
         <div className="xble-h-actions">
+          <SlButton onClick={() => setServerOpen(true)} size="small" circle>
+            <SlIcon name="reception-3" />
+          </SlButton>
           <SlButton onClick={() => setOpen(true)} size="small" circle>
             <SlIcon name="info-lg" />
           </SlButton>
@@ -37,6 +54,20 @@ const Header = () => {
           </div>
 
           <SlButton slot="footer" variant="primary" onClick={() => setOpen(false)}>
+            Close
+          </SlButton>
+        </SlDialog>
+
+        <SlDialog label="Server" open={serverOpen} onSlAfterHide={() => setServerOpen(false)}>
+          <div className="xble-cinner">
+            <SlBadge variant={serverRunning ? 'primary' : 'danger'}>
+              {serverRunning ? 'Connected' : 'Not Connected'}
+            </SlBadge>
+          </div>
+
+          <div>The server is {serverRunning ? 'Connected' : 'Not Connected'} to port 3000.</div>
+
+          <SlButton slot="footer" variant="primary" onClick={() => setServerOpen(false)}>
             Close
           </SlButton>
         </SlDialog>

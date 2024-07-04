@@ -84,6 +84,20 @@ const Core = () => {
     })
   }
 
+  // TODO: Handle throw error in API
+  const handleThrowError = (ev) => {
+    let newData
+    setData((prevState) => {
+      newData = {
+        ...prevState,
+        throwError: ev.target.checked
+      }
+      handleSave(newData)
+
+      return newData
+    })
+  }
+
   const handleStateChange = (ev, key) => {
     let newData
     setData((prevState) => {
@@ -119,6 +133,12 @@ const Core = () => {
                 <SlIconButton name="filetype-json" label="code" onClick={() => setOpen(true)} />
               </div>
             </div>
+          </div>
+
+          <div className="xble-cinner">
+            <SlSwitch checked={data?.throwError} onSlChange={handleThrowError}>
+              Throw Error
+            </SlSwitch>
           </div>
 
           <div className="xble-cinner">
