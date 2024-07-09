@@ -32,6 +32,10 @@ import Core from './components/core'
 //         manager.descriptorsForDevice(device.id, suuid, cuuid).then((descriptors) => {
 //           console.warn('descriptors', descriptors)
 //         })
+
+//         manager.isDeviceConnected(device.id).then((isConnected) => {
+//           console.warn('isConnected', isConnected)
+//         })
 //       })
 //   })
 // }, 3000)
