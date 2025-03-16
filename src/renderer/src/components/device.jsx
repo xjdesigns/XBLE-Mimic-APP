@@ -7,7 +7,8 @@ import {
   SlButtonGroup,
   SlSelect,
   SlOption,
-  SlBadge
+  SlBadge,
+  SlTooltip
 } from './shoelace'
 import { v4 as uuidv4 } from 'uuid'
 import { NEW_DEVICE, SERVICE, CHARACTERISTIC } from '../constants/device'
@@ -318,11 +319,13 @@ const Device = ({
                   value={device.id}
                   onSlInput={handleDeviceUpdate('id')}
                 />
-                <SlIconButton
-                  name="plugin"
-                  label="Add Device UUID"
-                  onClick={generateUUID('id', 'device')}
-                />
+                <SlTooltip content="Generate Device UUID">
+                  <SlIconButton
+                    name="plugin"
+                    label="Add Device UUID"
+                    onClick={generateUUID('id', 'device')}
+                  />
+                </SlTooltip>
               </div>
               <SlInput
                 label="localName"
@@ -366,11 +369,13 @@ const Device = ({
                       value={s.id}
                       onSlInput={handleServiceUpdate('id', idx)}
                     />
-                    <SlIconButton
-                      name="plugin"
-                      label="Add Service ID"
-                      onClick={generateUUID('id', 'service', idx)}
-                    />
+                    <SlTooltip content="Generate Service ID">
+                      <SlIconButton
+                        name="plugin"
+                        label="Add Service ID"
+                        onClick={generateUUID('id', 'service', idx)}
+                      />
+                    </SlTooltip>
                   </div>
                 </div>
                 <div className="xble-flex-fill">
@@ -381,11 +386,13 @@ const Device = ({
                       value={s.uuid}
                       onSlInput={handleServiceUpdate('uuid', idx)}
                     />
-                    <SlIconButton
-                      name="plugin"
-                      label="Add Service UUID"
-                      onClick={generateUUID('uuid', 'service', idx)}
-                    />
+                    <SlTooltip content="Generate Service UUID">
+                      <SlIconButton
+                        name="plugin"
+                        label="Add Service UUID"
+                        onClick={generateUUID('uuid', 'service', idx)}
+                      />
+                    </SlTooltip>
                   </div>
                 </div>
               </div>
@@ -459,11 +466,13 @@ const Device = ({
                       value={c.id}
                       onSlInput={handleCharacteristicUpdate('id', cidx)}
                     />
-                    <SlIconButton
-                      name="plugin"
-                      label="Add Characteristic ID"
-                      onClick={generateUUID('id', 'characteristic', cidx)}
-                    />
+                    <SlTooltip content="Generate Characteristic ID">
+                      <SlIconButton
+                        name="plugin"
+                        label="Add Characteristic ID"
+                        onClick={generateUUID('id', 'characteristic', cidx)}
+                      />
+                    </SlTooltip>
                   </div>
                   <div>
                     <SlSwitch
@@ -501,11 +510,13 @@ const Device = ({
                       value={c.uuid}
                       onSlInput={handleCharacteristicUpdate('uuid', cidx)}
                     />
-                    <SlIconButton
-                      name="plugin"
-                      label="Add Characteristic ID"
-                      onClick={generateUUID('uuid', 'characteristic', cidx)}
-                    />
+                    <SlTooltip content="Generate characteristic UUID">
+                      <SlIconButton
+                        name="plugin"
+                        label="Add Characteristic UUID"
+                        onClick={generateUUID('uuid', 'characteristic', cidx)}
+                      />
+                    </SlTooltip>
                   </div>
                   <div>
                     <SlInput
@@ -553,11 +564,13 @@ const Device = ({
                             value={d.id}
                             onSlInput={handleDescriptorUpdate('id', cidx, idx)}
                           />
-                          <SlIconButton
-                            name="plugin"
-                            label="Add Descriptor ID"
-                            onClick={generateUUID('id', 'descriptor', cidx, idx)}
-                          />
+                          <SlTooltip content="Generate Descriptor ID">
+                            <SlIconButton
+                              name="plugin"
+                              label="Add Descriptor ID"
+                              onClick={generateUUID('id', 'descriptor', cidx, idx)}
+                            />
+                          </SlTooltip>
                         </div>
                       </div>
                       <div className="xble-flex-fill">
@@ -568,11 +581,13 @@ const Device = ({
                             value={d.uuid}
                             onSlInput={handleDescriptorUpdate('uuid', cidx, idx)}
                           />
-                          <SlIconButton
-                            name="plugin"
-                            label="Add Descriptor UUID"
-                            onClick={generateUUID('uuid', 'descriptor', cidx, idx)}
-                          />
+                          <SlTooltip content="Generate Descriptor UUID">
+                            <SlIconButton
+                              name="plugin"
+                              label="Add Descriptor UUID"
+                              onClick={generateUUID('uuid', 'descriptor', cidx, idx)}
+                            />
+                          </SlTooltip>
                         </div>
                       </div>
                     </div>

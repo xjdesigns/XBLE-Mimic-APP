@@ -12,6 +12,7 @@ import SlSelect from '@shoelace-style/shoelace/dist/react/select/index.js'
 import SlOption from '@shoelace-style/shoelace/dist/react/option/index.js'
 import SlSpinner from '@shoelace-style/shoelace/dist/react/spinner/index.js'
 import SlBadge from '@shoelace-style/shoelace/dist/react/badge/index.js'
+import SlTooltip from '@shoelace-style/shoelace/dist/react/tooltip/index.js'
 
 export {
   SlButton,
@@ -27,5 +28,6 @@ export {
   SlSelect,
   SlOption,
   SlSpinner,
-  SlBadge
+  SlBadge,
+  SlTooltip
 }
