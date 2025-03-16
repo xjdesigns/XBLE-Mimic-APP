@@ -28,7 +28,7 @@ const Device = ({
     let val = ev.target.value
     const isId = key === 'id'
 
-    if (key === 'isConnectable' || key === '_haveDeviceFail') {
+    if (key === 'isConnectable' || key === 'isConnected' || key === '_haveDeviceFail') {
       val = ev.target.checked
     }
 

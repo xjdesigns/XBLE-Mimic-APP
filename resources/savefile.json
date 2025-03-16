@@ -1,6 +1,6 @@
 {
   "permissionRequest": true,
-  "initialState": "PoweredOff",
+  "initialState": "PoweredOn",
   "endState": "PoweredOn",
   "devices": [
     {
